@@ -102,7 +102,7 @@ public class PerformancePageFragment extends Fragment {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
                     String voice = result.get(0);
-                    if (voice.equals("byt") || voice.equals("workout") || voice.equals("byta") || voice.equals("change")){
+                    if (voice.equals("byt") || voice.equals("workout") || voice.equals("byta") || voice.equals("change") || voice.equals("work out")){
                         ViewPager vp=(ViewPager) getActivity().findViewById(R.id.viewpager);
                         vp.setCurrentItem(WORKOUT);
                     }
