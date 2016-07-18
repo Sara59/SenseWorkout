@@ -21,6 +21,9 @@ android {
         }
     }
 }
+repositories { //Line Chart
+    maven { url "https://jitpack.io" }
+}
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
@@ -28,4 +31,5 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.google.android.gms:play-services-maps:9.0.0'
     compile 'com.google.android.gms:play-services-location:9.0.0'
+    compile 'com.github.PhilJay:MPAndroidChart:v2.1.6' //Line Chart
 }
