@@ -24,6 +24,8 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.data.Entry;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -63,6 +65,23 @@ public class TimerWindow extends AppCompatActivity {
     /* Has a shaking motion been started (one direction) */
     private boolean shakeInitiated = false;
     /* The SensorEventListener lets us wire up to the real hardware events */
+
+    private SensorManager sensorMan;
+    private Sensor accelerometer;
+
+    private float[] mGravity;
+    private float mAccel;
+    private float mAccelCurrent;
+    private float mAccelLast;
+    TextView tvMovement;
+    private float totalMAccel;
+
+    final static public ArrayList<Entry> entries = new ArrayList<>();
+    private static int diagramIndex;
+    private int count = 0;
+    private long currentTime;
+    private long lastTime;
+
     private final SensorEventListener mySensorEventListener = new SensorEventListener() {
 
         public void onSensorChanged(SensorEvent se) {
@@ -126,6 +145,13 @@ public class TimerWindow extends AppCompatActivity {
         list.add("Upphopp");
         list.add(150000);
 
+        /*
+        sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
+        accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mAccel = 0.00f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
+        */
 
 
 

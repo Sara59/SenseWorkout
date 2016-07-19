@@ -19,6 +19,11 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -64,7 +69,60 @@ public class PerformancePageFragment extends Fragment {
                 }
             });
         }
+        /*
+        LineChart lineChart = (LineChart) view.findViewById(R.id.chart);
+        // creating list of entry
+        ArrayList<Entry> diagramEntries = Movement_activity.entries;
+        LineDataSet dataset = new LineDataSet(diagramEntries, "Movement");
+        // creating labels
+        ArrayList<String> labels = new ArrayList<String>();
+        for (int i = 0; i < Movement_activity.entries.size(); i++) {
+            labels.add(Integer.toString(i));
+        }
+
+        LineData data = new LineData(labels, dataset);
+        lineChart.setData(data); // set the data and list of lables into chart
+        lineChart.setDescription(" ");  // set the description
+        dataset.setDrawCubic(true); */
+
+        /*Simulering*/
+        LineChart lineChart = (LineChart) view.findViewById(R.id.chart);
+        // creating list of entry
+        ArrayList<Entry> entries = new ArrayList<>();
+        entries.add(new Entry(0, 0));
+        entries.add(new Entry(1, 1));
+        entries.add(new Entry(2, 2));
+        entries.add(new Entry(3, 3));
+        entries.add(new Entry(4, 4));
+        entries.add(new Entry(3, 5));
+        entries.add(new Entry(2, 6));
+        entries.add(new Entry(0, 7));
+        entries.add(new Entry(1, 8));
+        entries.add(new Entry(3, 9));
+        entries.add(new Entry(2, 10));
+        entries.add(new Entry(5, 11));
+        entries.add(new Entry(2, 12));
+        entries.add(new Entry(1, 13));
+        entries.add(new Entry(2, 14));
+        entries.add(new Entry(1, 15));
+        entries.add(new Entry(0, 16));
+        entries.add(new Entry(1, 17));
+        entries.add(new Entry(2, 18));
+        entries.add(new Entry(3, 19));
+
+        LineDataSet dataset = new LineDataSet(entries, "# of Calls");
+        // creating labels
+        ArrayList<String> labels = new ArrayList<String>();
+        for(int i=0; i<20;i++){
+            labels.add(Integer.toString(i));
+        }
+        LineData data = new LineData(labels, dataset);
+        lineChart.setData(data); // set the data and list of lables into chart
+        lineChart.setDescription("Description");  // set the description
+        dataset.setDrawCubic(true);
         return view;
+
+
     }
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
