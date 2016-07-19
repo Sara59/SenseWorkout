@@ -20,7 +20,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|center"
-            android:text="Klicka här"
+            android:text="Workout 1"
             android:clickable="true"
             android:textSize="30dp"
             android:onClick="toggle_contents"/>
@@ -30,11 +30,11 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_below="@id/help_title_gest"
-            android:text="Yaaay det funkade! "/>
+            android:text="More info about exersices... "/>
 
         <TextView
             android:id="@+id/buttonInTv"
-            android:text="MyButton"
+            android:text="Start this workout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
