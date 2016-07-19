@@ -35,7 +35,10 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
     private final int PERFORMANCE = 1;
 
     TextView txt_help_gest;
+    TextView txt_help_gest2;
     TextView title;
+    TextView title2;
+
 
     private Context context;
 
@@ -106,13 +109,41 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
             }
         });
 
+
+        txt_help_gest2 = (TextView) view.findViewById(R.id.txt_help_gest2);
+        // hide until its title is clicked
+        txt_help_gest2.setVisibility(View.GONE);
+
+        TextView buttonInTv2 = (TextView) view.findViewById(R.id.buttonInTv2);
+        buttonInTv2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), TimerWindow.class));
+            }
+        });
+
+        title2 = (TextView) view.findViewById(R.id.help_title_gest2);
+        title2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle_contents(title2);
+            }
+        });
+
         return view;
     }
 
     public void toggle_contents(View v){
-        txt_help_gest.setVisibility( txt_help_gest.isShown()
-                ? View.GONE
-                : View.VISIBLE );
+        if(v.equals(title)) {
+            txt_help_gest.setVisibility(txt_help_gest.isShown()
+                    ? View.GONE
+                    : View.VISIBLE);
+        }
+        if(v.equals(title2)){
+            txt_help_gest2.setVisibility(txt_help_gest2.isShown()
+                    ? View.GONE
+                    : View.VISIBLE);
+        }
     }
 
     public void onClick(View view) {

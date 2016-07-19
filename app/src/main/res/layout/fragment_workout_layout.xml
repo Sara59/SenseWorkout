@@ -7,13 +7,17 @@
     android:rowCount="6">
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/ex">
+        android:background="@drawable/back">
 
         <!-- Clickable title -->
         <TextView  android:id="@+id/help_title_gest"
@@ -23,7 +27,7 @@
             android:text="Workout 1"
             android:clickable="true"
             android:textSize="30dp"
-            android:onClick="toggle_contents"/>
+            android:onClick="toggle_contents" />
         <!--content to hide/show -->
         <TextView  android:id="@+id/txt_help_gest"
             android:layout_width="fill_parent"
@@ -44,6 +48,45 @@
             android:background="@color/white"
             android:padding="10dp"/>
         </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/back">
+
+        <!-- Clickable title -->
+        <TextView  android:id="@+id/help_title_gest2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|center"
+            android:text="Workout 2"
+            android:clickable="true"
+            android:textSize="30dp"
+            android:onClick="toggle_contents" />
+        <!--content to hide/show -->
+        <TextView  android:id="@+id/txt_help_gest2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_below="@id/help_title_gest"
+            android:text="More info about exersices... "/>
+
+        <TextView
+            android:id="@+id/buttonInTv2"
+            android:text="Start this workout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:layout_marginRight="20dp"
+            android:layout_marginBottom="5dp"
+            android:clickable="true"
+            android:background="@color/white"
+            android:padding="10dp"/>
+    </LinearLayout>
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/InnerRelativeLayout"
