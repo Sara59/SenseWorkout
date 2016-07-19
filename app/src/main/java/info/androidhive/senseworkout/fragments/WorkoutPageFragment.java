@@ -17,6 +17,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +33,9 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
     Button btnStartWorkout;
     private final int WORKOUT = 0;
     private final int PERFORMANCE = 1;
+
+    TextView txt_help_gest;
+    TextView title;
 
     private Context context;
 
@@ -73,21 +77,46 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
             });
         }
 
-        btnStartWorkout = (Button) view.findViewById(R.id.btnStartWorkout);
-        btnStartWorkout.setOnClickListener(this);
+       btnStartWorkout = (Button) view.findViewById(R.id.btnStartWorkout);
+        btnStartWorkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                        startActivity(new Intent(getActivity(), TimerWindow.class));
+
+            }
+        });
+
+        txt_help_gest = (TextView) view.findViewById(R.id.txt_help_gest);
+        // hide until its title is clicked
+        txt_help_gest.setVisibility(View.GONE);
+
+        TextView buttonInTv = (TextView) view.findViewById(R.id.buttonInTv);
+        buttonInTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), TimerWindow.class));
+            }
+        });
+
+        title = (TextView) view.findViewById(R.id.help_title_gest);
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle_contents(title);
+            }
+        });
 
         return view;
     }
 
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnStartWorkout:
-                startActivity(new Intent(getActivity(), TimerWindow.class));
-                break;
+    public void toggle_contents(View v){
+        txt_help_gest.setVisibility( txt_help_gest.isShown()
+                ? View.GONE
+                : View.VISIBLE );
+    }
 
-            default:
-                break;
-        }
+    public void onClick(View view) {
+
     }
 
     private final int REQ_CODE_SPEECH_INPUT = 100;
