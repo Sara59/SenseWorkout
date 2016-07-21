@@ -38,6 +38,8 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
     TextView txt_help_gest2;
     TextView title;
     TextView title2;
+    ArrayList list1 = new ArrayList();
+    ArrayList list2 = new ArrayList();
 
 
     private Context context;
@@ -55,6 +57,21 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        list1.add("Plankan");
+        list1.add(15000);
+        list1.add("Next Exercise in: ");
+        list1.add(5000);
+        list1.add("Upphopp");
+        list1.add(150000);
+
+        list2.add("Yoga övning");
+        list2.add(15000);
+        list2.add("Next Exercise in: ");
+        list2.add(5000);
+        list2.add("Upphopp");
+        list2.add(150000);
+
 
         context= getContext();
 
@@ -97,7 +114,11 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         buttonInTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), TimerWindow.class));
+                Intent i = new Intent(getActivity(), TimerWindow.class);
+                Bundle b = new Bundle();
+                b.putParcelableArrayList("WO", list1);
+                i.putExtras(b);
+                startActivityForResult(i, 1);
             }
         });
 
@@ -118,7 +139,11 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         buttonInTv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getActivity(), TimerWindow.class));
+                Intent i = new Intent(getActivity(), TimerWindow.class);
+                Bundle b = new Bundle();
+                b.putParcelableArrayList("WO", list2);
+                i.putExtras(b);
+                startActivityForResult(i, 1);
             }
         });
 

@@ -33,7 +33,7 @@ import info.androidhive.senseworkout.R;
 
 public class TimerWindow extends AppCompatActivity {
 
-    final ArrayList list = new ArrayList();
+    ArrayList list = new ArrayList();
     final ArrayList<String> heartbeatValues = new ArrayList<String>(); //Elin
     /*What acceleration difference would we assume as a rapid movement? */
     private final float shakeThreshold = 1.5f;
@@ -42,6 +42,8 @@ public class TimerWindow extends AppCompatActivity {
     CountDownTimer countDownTimer = null;
     boolean isPaused = true;
     boolean first = true;
+
+    Vibrator v;
 
     private int counter = 0;
     private int counterpause = 0;
@@ -118,12 +120,18 @@ public class TimerWindow extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timer);
 
+
+        Bundle b = this.getIntent().getExtras();
+        list = b.getParcelableArrayList("WO");
+
+
+
         TextView mTextField = new TextView(this);
         mTextField = (TextView) findViewById(R.id.text);
 
         txtSpeechInput = (TextView) findViewById(R.id.txtSpeechInput);
 
-        final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 
 
@@ -138,12 +146,15 @@ public class TimerWindow extends AppCompatActivity {
             heartbeatValues.add(values[i]);
         }
 
+        /*
         list.add("Plankan");
         list.add(15000);
         list.add("Next Exercise in: ");
         list.add(5000);
         list.add("Upphopp");
         list.add(150000);
+        */
+
 
         /*
         sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
@@ -160,20 +171,7 @@ public class TimerWindow extends AppCompatActivity {
             start.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-
-                    if (isPaused){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            start.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_pause, getTheme()));
-                        } else {
-                            start.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_pause));
-                        }
-                    } else if (!isPaused){
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                            start.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_play, getTheme()));
-                        } else {
-                            start.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_play));
-                        }
-                    }
+                    changeIcon(start);
 
                     if (isPaused) {
                         isPaused = false;
@@ -205,11 +203,12 @@ public class TimerWindow extends AppCompatActivity {
             });
         }
 
-        FloatingActionButton pause = (FloatingActionButton) findViewById(R.id.pause);
+        final FloatingActionButton pause = (FloatingActionButton) findViewById(R.id.pause);
         if (pause != null) {
             pause.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
+                    changeIcon(pause);
                     if (index >= 2) {
                         index = index - 2;
                     } else {
@@ -256,6 +255,22 @@ public class TimerWindow extends AppCompatActivity {
 
                 }
             });
+        }
+    }
+
+    private void changeIcon(FloatingActionButton button){
+        if (isPaused){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_pause, getTheme()));
+            } else {
+                button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_pause));
+            }
+        } else if (!isPaused){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_play, getTheme()));
+            } else {
+                button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_play));
+            }
         }
     }
 
