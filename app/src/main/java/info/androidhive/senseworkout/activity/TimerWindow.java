@@ -93,6 +93,7 @@ public class TimerWindow extends AppCompatActivity {
                 shakeInitiated = true;
             } else if ((shakeInitiated) && isAccelerationChanged()) { // (3)
                 if (isPaused && (counter-counterpause) >= 50) {
+                    v.vibrate(50);
                     final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
                     if (start != null) {
                         changeIcon(start);
@@ -102,6 +103,7 @@ public class TimerWindow extends AppCompatActivity {
 
                 }
                 if (!isPaused && (counter-counterpause) >= 50) {
+                    v.vibrate(50);
                     final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
                     if (start != null) {
                         changeIcon(start);
@@ -413,7 +415,7 @@ public class TimerWindow extends AppCompatActivity {
         heartTextField = (TextView) findViewById(R.id.heartbeat);
         final TextView finalheartTextField = heartTextField;//Elin
 
-        final Vibrator v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         TextView mTextField = new TextView(this);
         mTextField = (TextView) findViewById(R.id.text);
 
