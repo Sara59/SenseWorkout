@@ -93,11 +93,19 @@ public class TimerWindow extends AppCompatActivity {
                 shakeInitiated = true;
             } else if ((shakeInitiated) && isAccelerationChanged()) { // (3)
                 if (isPaused && (counter-counterpause) >= 50) {
+                    final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
+                    if (start != null) {
+                        changeIcon(start);
+                    }
                     counterpause = counter;
                     startTimer(list);
 
                 }
                 if (!isPaused && (counter-counterpause) >= 50) {
+                    final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
+                    if (start != null) {
+                        changeIcon(start);
+                    }
                     System.out.println("XXX: SecondsGone: " + (counter-counterpause));
                     counterpause = counter;
                     countDownTimer.cancel();
@@ -145,15 +153,6 @@ public class TimerWindow extends AppCompatActivity {
         for (int i = 0; i < values.length; ++i) {
             heartbeatValues.add(values[i]);
         }
-
-        /*
-        list.add("Plankan");
-        list.add(15000);
-        list.add("Next Exercise in: ");
-        list.add(5000);
-        list.add("Upphopp");
-        list.add(150000);
-        */
 
 
         /*
