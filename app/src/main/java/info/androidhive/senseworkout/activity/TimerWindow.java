@@ -80,7 +80,7 @@ public class TimerWindow extends AppCompatActivity {
 
     final static public ArrayList<Entry> entries = new ArrayList<>();
     private static int diagramIndex;
-    private int count = 0;
+    private int diagramCount = 0;
     private long currentTime;
     private long lastTime;
 
@@ -92,7 +92,7 @@ public class TimerWindow extends AppCompatActivity {
             if ((!shakeInitiated) && isAccelerationChanged()) {                                      // (2)
                 shakeInitiated = true;
             } else if ((shakeInitiated) && isAccelerationChanged()) { // (3)
-                if (isPaused && (counter-counterpause) >= 50) {
+                if (isPaused && (counter - counterpause) >= 50) {
                     v.vibrate(50);
                     final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
                     if (start != null) {
@@ -102,13 +102,13 @@ public class TimerWindow extends AppCompatActivity {
                     startTimer(list);
 
                 }
-                if (!isPaused && (counter-counterpause) >= 50) {
+                if (!isPaused && (counter - counterpause) >= 50) {
                     v.vibrate(50);
                     final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
                     if (start != null) {
                         changeIcon(start);
                     }
-                    System.out.println("XXX: SecondsGone: " + (counter-counterpause));
+                    System.out.println("XXX: SecondsGone: " + (counter - counterpause));
                     counterpause = counter;
                     countDownTimer.cancel();
                     isPaused = true;
@@ -117,6 +117,41 @@ public class TimerWindow extends AppCompatActivity {
 
             } else if ((shakeInitiated) && (!isAccelerationChanged())) {                           // (4)
                 shakeInitiated = false;
+            }
+
+            if (!shakeInitiated && !isPaused) { //SARA KOLLA IF-sats
+                if (se.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
+                    mGravity = se.values.clone();
+                    float x = mGravity[0];
+                    float y = mGravity[1];
+                    float z = mGravity[2];
+                    mAccelLast = mAccelCurrent;
+                    mAccelCurrent = (float) Math.sqrt(x * x + y * y + z * z);
+                    float delta = mAccelCurrent - mAccelLast;
+                    mAccel = mAccel * 0.9f + delta;
+                    // Make this higher or lower according to how much
+                    // motion you want to detect
+                    totalMAccel += mAccel;
+                    diagramCount++;
+                    currentTime = System.currentTimeMillis(); // current time
+                    long difference = currentTime - lastTime;
+                    lastTime = currentTime;
+                    if (difference >= 10000) { //Sparar info var 10e sekund
+                        float medelMAccel = totalMAccel / diagramCount;
+                        if (medelMAccel < 0) {
+                            entries.add(new Entry(0, index));
+                        } else {
+                            entries.add(new Entry(medelMAccel, index));
+                        }
+                        index++;
+                        System.out.println(medelMAccel + " och index " + index);
+                        totalMAccel = 0;
+                        diagramCount = 0;
+
+                    }
+
+
+                }
             }
         }
 
@@ -135,7 +170,6 @@ public class TimerWindow extends AppCompatActivity {
         list = b.getParcelableArrayList("WO");
 
 
-
         TextView mTextField = new TextView(this);
         mTextField = (TextView) findViewById(R.id.text);
 
@@ -144,11 +178,15 @@ public class TimerWindow extends AppCompatActivity {
         v = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
 
 
-
         mySensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE); // (1)
+
         mySensorManager.registerListener(mySensorEventListener, mySensorManager
                         .getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL); // (2)
+        accelerometer = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); //Elin
+        mAccel = 0.00f; //Elin
+        mAccelCurrent = SensorManager.GRAVITY_EARTH; //Elin
+        mAccelLast = SensorManager.GRAVITY_EARTH; //Elin
 
         String[] values = new String[]{"84", "85", "84", //Elin
                 "86", "85", "85", "87", "86"};
@@ -157,14 +195,13 @@ public class TimerWindow extends AppCompatActivity {
         }
 
 
-        /*
+        /* Sensor Managern från Elins kod
         sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
         accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
         mAccel = 0.00f;
         mAccelCurrent = SensorManager.GRAVITY_EARTH;
         mAccelLast = SensorManager.GRAVITY_EARTH;
         */
-
 
 
         final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
@@ -193,7 +230,7 @@ public class TimerWindow extends AppCompatActivity {
             speak.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    if(!isPaused) {
+                    if (!isPaused) {
                         isPaused = true;
                         countDownTimer.cancel();
                     }
@@ -259,14 +296,14 @@ public class TimerWindow extends AppCompatActivity {
         }
     }
 
-    private void changeIcon(FloatingActionButton button){
-        if (isPaused){
+    private void changeIcon(FloatingActionButton button) {
+        if (isPaused) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_pause, getTheme()));
             } else {
                 button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_pause));
             }
-        } else if (!isPaused){
+        } else if (!isPaused) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 button.setImageDrawable(getResources().getDrawable(R.drawable.ic_media_play, getTheme()));
             } else {
@@ -297,7 +334,7 @@ public class TimerWindow extends AppCompatActivity {
 
     /**
      * Receiving speech input
-     * */
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -310,18 +347,18 @@ public class TimerWindow extends AppCompatActivity {
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
                     String voice = result.get(0);
-                    if(voice.equals("paus")){
-                        if(!isPaused) {
+                    if (voice.equals("paus")) {
+                        if (!isPaused) {
 
                             isPaused = true;
                             countDownTimer.cancel();
                         }
-                    } else if (voice.equals("start") || voice.equals("starts")){
+                    } else if (voice.equals("start") || voice.equals("starts")) {
 
                         isPaused = false;
                         startTimer(list);
 
-                    } else if (voice.equals("stopp") || voice.equals("stop")|| voice.equals("cancel")) {
+                    } else if (voice.equals("stopp") || voice.equals("stop") || voice.equals("cancel")) {
                         Context context = TimerWindow.this;
 
                         AlertDialog.Builder builder = new AlertDialog.Builder(context);
@@ -346,8 +383,8 @@ public class TimerWindow extends AppCompatActivity {
 
                         mAboutDialog = builder.show();
 
-                    }else {
-                        if(!isPaused) {
+                    } else {
+                        if (!isPaused) {
                             isPaused = true;
                             countDownTimer.cancel();
                         }
