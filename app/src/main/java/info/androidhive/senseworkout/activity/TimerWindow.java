@@ -36,7 +36,7 @@ public class TimerWindow extends AppCompatActivity {
     ArrayList list = new ArrayList();
     final ArrayList<String> heartbeatValues = new ArrayList<String>(); //Elin
     /*What acceleration difference would we assume as a rapid movement? */
-    private final float shakeThreshold = 1.5f;
+    private final float shakeThreshold = 3f;
     long millisRemaining = 10000;
     TextView mTextField;
     CountDownTimer countDownTimer = null;
@@ -119,7 +119,7 @@ public class TimerWindow extends AppCompatActivity {
                 shakeInitiated = false;
             }
 
-            if (!shakeInitiated && !isPaused) { //SARA KOLLA IF-sats
+            if (!shakeInitiated && !isPaused) {
                 if (se.sensor.getType() == Sensor.TYPE_ACCELEROMETER) {
                     mGravity = se.values.clone();
                     float x = mGravity[0];
@@ -136,15 +136,15 @@ public class TimerWindow extends AppCompatActivity {
                     currentTime = System.currentTimeMillis(); // current time
                     long difference = currentTime - lastTime;
                     lastTime = currentTime;
-                    if (difference >= 10000) { //Sparar info var 10e sekund
+                    if (difference >= 1000) { //Sparar info var sekund
                         float medelMAccel = totalMAccel / diagramCount;
                         if (medelMAccel < 0) {
-                            entries.add(new Entry(0, index));
+                            entries.add(new Entry(0, diagramIndex));
                         } else {
-                            entries.add(new Entry(medelMAccel, index));
+                            entries.add(new Entry(medelMAccel, diagramIndex));
                         }
-                        index++;
-                        System.out.println(medelMAccel + " och index " + index);
+                        diagramIndex++;
+                        System.out.println(medelMAccel + " och index " + diagramIndex);
                         totalMAccel = 0;
                         diagramCount = 0;
 
@@ -187,6 +187,7 @@ public class TimerWindow extends AppCompatActivity {
         mAccel = 0.00f; //Elin
         mAccelCurrent = SensorManager.GRAVITY_EARTH; //Elin
         mAccelLast = SensorManager.GRAVITY_EARTH; //Elin
+        entries.clear();
 
         String[] values = new String[]{"84", "85", "84", //Elin
                 "86", "85", "85", "87", "86"};

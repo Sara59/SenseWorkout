@@ -73,7 +73,7 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         list2.add(150000);
 
 
-        context= getContext();
+        context = getContext();
 
 
         mySensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE); // (1)
@@ -97,11 +97,11 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
             });
         }
 
-       btnStartWorkout = (Button) view.findViewById(R.id.btnStartWorkout);
+        btnStartWorkout = (Button) view.findViewById(R.id.btnStartWorkout);
         btnStartWorkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                        startActivity(new Intent(getActivity(), TimerWindow.class));
+                startActivity(new Intent(getActivity(), TimerWindow.class));
 
             }
         });
@@ -158,13 +158,13 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         return view;
     }
 
-    public void toggle_contents(View v){
-        if(v.equals(title)) {
+    public void toggle_contents(View v) {
+        if (v.equals(title)) {
             txt_help_gest.setVisibility(txt_help_gest.isShown()
                     ? View.GONE
                     : View.VISIBLE);
         }
-        if(v.equals(title2)){
+        if (v.equals(title2)) {
             txt_help_gest2.setVisibility(txt_help_gest2.isShown()
                     ? View.GONE
                     : View.VISIBLE);
@@ -197,7 +197,7 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
 
     /**
      * Receiving speech input
-     * */
+     */
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -210,10 +210,10 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
                             .getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
                     txtSpeechInput.setText(result.get(0));
                     String voice = result.get(0);
-                    if (voice.equals("byt") || voice.equals("performance") || voice.equals("byta") || voice.equals("change")){
-                        ViewPager vp=(ViewPager) getActivity().findViewById(R.id.viewpager);
+                    if (voice.equals("byt") || voice.equals("performance") || voice.equals("byta") || voice.equals("change")) {
+                        ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewpager);
                         vp.setCurrentItem(PERFORMANCE);
-                    }else if (voice.equals("start") || voice.equals("quickstart") || voice.equals("starts")){
+                    } else if (voice.equals("start") || voice.equals("quickstart") || voice.equals("starts")) {
                         startActivity(new Intent(getActivity(), TimerWindow.class));
                     }
 
@@ -250,9 +250,9 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
             if ((!shakeInitiated) && isAccelerationChanged()) {                                      // (2)
                 shakeInitiated = true;
             } else if ((shakeInitiated) && isAccelerationChanged()) { // (3)
-                if ((count-counterpause) >= 50) {
+                if ((count - counterpause) >= 50) {
                     count = counterpause;
-                    ViewPager vp=(ViewPager) getActivity().findViewById(R.id.viewpager);
+                    ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewpager);
                     vp.setCurrentItem(PERFORMANCE);
 
 

@@ -26,8 +26,10 @@ import com.github.mikephil.charting.data.LineDataSet;
 
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Timer;
 
 import info.androidhive.senseworkout.R;
+import info.androidhive.senseworkout.activity.TimerWindow;
 
 
 public class PerformancePageFragment extends Fragment {
@@ -69,23 +71,23 @@ public class PerformancePageFragment extends Fragment {
                 }
             });
         }
-        /*
+        /* */
         LineChart lineChart = (LineChart) view.findViewById(R.id.chart);
         // creating list of entry
-        ArrayList<Entry> diagramEntries = Movement_activity.entries;
+        ArrayList<Entry> diagramEntries = TimerWindow.entries;
         LineDataSet dataset = new LineDataSet(diagramEntries, "Movement");
         // creating labels
         ArrayList<String> labels = new ArrayList<String>();
-        for (int i = 0; i < Movement_activity.entries.size(); i++) {
+        for (int i = 0; i < TimerWindow.entries.size(); i++) {
             labels.add(Integer.toString(i));
         }
 
         LineData data = new LineData(labels, dataset);
         lineChart.setData(data); // set the data and list of lables into chart
         lineChart.setDescription(" ");  // set the description
-        dataset.setDrawCubic(true); */
+        dataset.setDrawCubic(true);
 
-        /*Simulering*/
+        /*Simulering
         LineChart lineChart = (LineChart) view.findViewById(R.id.chart);
         // creating list of entry
         ArrayList<Entry> entries = new ArrayList<>();
@@ -120,6 +122,7 @@ public class PerformancePageFragment extends Fragment {
         lineChart.setData(data); // set the data and list of lables into chart
         lineChart.setDescription("Description");  // set the description
         dataset.setDrawCubic(true);
+        */
         return view;
 
 
