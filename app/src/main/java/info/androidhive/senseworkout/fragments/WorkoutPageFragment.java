@@ -1,8 +1,10 @@
 package info.androidhive.senseworkout.fragments;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import info.androidhive.senseworkout.R;
+import info.androidhive.senseworkout.activity.SimpleTabsActivity;
 import info.androidhive.senseworkout.activity.TimerWindow;
 
 
@@ -40,6 +43,8 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
     TextView title2;
     ArrayList list1 = new ArrayList();
     ArrayList list2 = new ArrayList();
+
+    private AlertDialog dialog;
 
 
     private Context context;
@@ -154,6 +159,18 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
                 toggle_contents(title2);
             }
         });
+
+        /* Prototype 2
+        Context context = view.getContext();
+        dialog = new AlertDialog.Builder(context)
+                .setMessage("Hello")
+                .setTitle("Welcome to SenseWorkout")
+                .setPositiveButton("ok", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                    }
+                }).show();
+        */
 
         return view;
     }

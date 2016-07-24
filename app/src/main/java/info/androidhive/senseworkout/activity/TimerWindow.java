@@ -34,7 +34,7 @@ import info.androidhive.senseworkout.R;
 public class TimerWindow extends AppCompatActivity {
 
     ArrayList list = new ArrayList();
-    final ArrayList<String> heartbeatValues = new ArrayList<String>(); //Elin
+    final ArrayList<String> heartbeatValues = new ArrayList<String>();
     /*What acceleration difference would we assume as a rapid movement? */
     private final float shakeThreshold = 3f;
     long millisRemaining = 10000;
@@ -48,7 +48,7 @@ public class TimerWindow extends AppCompatActivity {
     private int counter = 0;
     private int counterpause = 0;
 
-    int heartIndex = 0; //Elin
+    int heartIndex = 0;
     int index = 0;
     String string;
     private AlertDialog mAboutDialog;
@@ -68,14 +68,11 @@ public class TimerWindow extends AppCompatActivity {
     private boolean shakeInitiated = false;
     /* The SensorEventListener lets us wire up to the real hardware events */
 
-    private SensorManager sensorMan;
     private Sensor accelerometer;
-
     private float[] mGravity;
     private float mAccel;
     private float mAccelCurrent;
     private float mAccelLast;
-    TextView tvMovement;
     private float totalMAccel;
 
     final static public ArrayList<Entry> entries = new ArrayList<>();
@@ -136,7 +133,7 @@ public class TimerWindow extends AppCompatActivity {
                     currentTime = System.currentTimeMillis(); // current time
                     long difference = currentTime - lastTime;
                     lastTime = currentTime;
-                    if (difference >= 1000) { //Sparar info var sekund
+                    if (difference >= 1000) { //Saves every second
                         float medelMAccel = totalMAccel / diagramCount;
                         if (medelMAccel < 0) {
                             entries.add(new Entry(0, diagramIndex));
@@ -183,27 +180,18 @@ public class TimerWindow extends AppCompatActivity {
         mySensorManager.registerListener(mySensorEventListener, mySensorManager
                         .getDefaultSensor(Sensor.TYPE_ACCELEROMETER),
                 SensorManager.SENSOR_DELAY_NORMAL); // (2)
-        accelerometer = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER); //Elin
-        mAccel = 0.00f; //Elin
-        mAccelCurrent = SensorManager.GRAVITY_EARTH; //Elin
-        mAccelLast = SensorManager.GRAVITY_EARTH; //Elin
+        accelerometer = mySensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mAccel = 0.00f;
+        mAccelCurrent = SensorManager.GRAVITY_EARTH;
+        mAccelLast = SensorManager.GRAVITY_EARTH;
         entries.clear();
 
-        String[] values = new String[]{"84", "85", "84", //Elin
+        /*Adds heartbeat values*/
+        String[] values = new String[]{"84", "85", "84", //
                 "86", "85", "85", "87", "86"};
         for (int i = 0; i < values.length; ++i) {
             heartbeatValues.add(values[i]);
         }
-
-
-        /* Sensor Managern från Elins kod
-        sensorMan = (SensorManager) getSystemService(SENSOR_SERVICE);
-        accelerometer = sensorMan.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-        mAccel = 0.00f;
-        mAccelCurrent = SensorManager.GRAVITY_EARTH;
-        mAccelLast = SensorManager.GRAVITY_EARTH;
-        */
-
 
         final FloatingActionButton start = (FloatingActionButton) findViewById(R.id.start);
         if (start != null) {
