@@ -72,11 +72,11 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         list1.add("Upphopp");
         list1.add(150000);
 
-        list2.add("Yoga övning");
+        list2.add("Trädet");
         list2.add(15000);
         list2.add("Next Exercise in: ");
         list2.add(5000);
-        list2.add("Upphopp");
+        list2.add("Djup squat");
         list2.add(150000);
 
 

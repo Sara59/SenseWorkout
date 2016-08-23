@@ -40,7 +40,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_below="@id/help_title_gest"
-            android:text="More info about exersices... "/>
+            android:text="Plankan 15s, Upphopp 150s "/>
 
         <TextView
             android:id="@+id/buttonInTv"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="start|center"
             android:layout_below="@id/help_title_gest"
-            android:text="More info about exersices... "/>
+            android:text="Trädet 15s, Djup squat 150s"/>
 
         <TextView
             android:id="@+id/buttonInTv2"
