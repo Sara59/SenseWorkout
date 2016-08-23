@@ -170,22 +170,22 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        /* Prototype 2
+
         Context context = view.getContext();
         dialog = new AlertDialog.Builder(context)
-                .setMessage("Hello")
+                .setMessage("Hi! \n In this app you can use voice control! \n \"Change\" - To shift between tabs. \n \"Start workout n\" - To start a specific workout \n \n During workout you can say: \n \"Start\" - To start \n \"Pause\" - To pause \n \"Stop\" - To stop \n \n Thank you for using SenseWorkout!")
                 .setTitle("Welcome to SenseWorkout")
                 .setPositiveButton("ok", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 }).show();
-        */
+
 
         return view;
     }
 
-    public void startWO(ArrayList list){
+    public void startWO(ArrayList list) {
         Intent i = new Intent(getActivity(), TimerWindow.class);
         Bundle b = new Bundle();
         b.putParcelableArrayList("WO", list);
@@ -252,7 +252,7 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
                             || voice.equals("first") || voice.equals("first workout") || voice.equals("start first workout")
                             || voice.equals("start workout one") || voice.equals("workout ett")) {
                         startWO(list1);
-                    }else if (voice.equals("start second") || voice.equals("quickstart second") || voice.equals("starts second")
+                    } else if (voice.equals("start second") || voice.equals("quickstart second") || voice.equals("starts second")
                             || voice.equals("second") || voice.equals("second workout") || voice.equals("start second workout")
                             || voice.equals("start workout two") || voice.equals("workout två")) {
                         startWO(list2);
