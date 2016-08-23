@@ -28,6 +28,12 @@
             android:clickable="true"
             android:textSize="30dp"
             android:onClick="toggle_contents" />
+        <TextView  android:id="@+id/show_more1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_below="@id/help_title_gest"
+            android:text="Click to show more... "/>
         <!--content to hide/show -->
         <TextView  android:id="@+id/txt_help_gest"
             android:layout_width="fill_parent"
@@ -66,6 +72,12 @@
             android:textSize="30dp"
             android:onClick="toggle_contents" />
         <!--content to hide/show -->
+        <TextView  android:id="@+id/show_more2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start|center"
+            android:layout_below="@id/help_title_gest"
+            android:text="Click to show more... "/>
         <TextView  android:id="@+id/txt_help_gest2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"

@@ -39,6 +39,8 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
 
     TextView txt_help_gest;
     TextView txt_help_gest2;
+    TextView show_more1;
+    TextView show_more2;
     TextView title;
     TextView title2;
     ArrayList list1 = new ArrayList();
@@ -119,16 +121,20 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         buttonInTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), TimerWindow.class);
-                Bundle b = new Bundle();
-                b.putParcelableArrayList("WO", list1);
-                i.putExtras(b);
-                startActivityForResult(i, 1);
+                startWO(list1);
             }
         });
 
         title = (TextView) view.findViewById(R.id.help_title_gest);
         title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle_contents(title);
+            }
+        });
+
+        show_more1 = (TextView) view.findViewById(R.id.show_more1);
+        show_more1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle_contents(title);
@@ -144,16 +150,20 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         buttonInTv2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent i = new Intent(getActivity(), TimerWindow.class);
-                Bundle b = new Bundle();
-                b.putParcelableArrayList("WO", list2);
-                i.putExtras(b);
-                startActivityForResult(i, 1);
+                startWO(list2);
             }
         });
 
         title2 = (TextView) view.findViewById(R.id.help_title_gest2);
         title2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                toggle_contents(title2);
+            }
+        });
+
+        show_more2 = (TextView) view.findViewById(R.id.show_more2);
+        show_more2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 toggle_contents(title2);
@@ -173,6 +183,14 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
         */
 
         return view;
+    }
+
+    public void startWO(ArrayList list){
+        Intent i = new Intent(getActivity(), TimerWindow.class);
+        Bundle b = new Bundle();
+        b.putParcelableArrayList("WO", list);
+        i.putExtras(b);
+        startActivityForResult(i, 1);
     }
 
     public void toggle_contents(View v) {
@@ -230,8 +248,14 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
                     if (voice.equals("byt") || voice.equals("performance") || voice.equals("byta") || voice.equals("change")) {
                         ViewPager vp = (ViewPager) getActivity().findViewById(R.id.viewpager);
                         vp.setCurrentItem(PERFORMANCE);
-                    } else if (voice.equals("start") || voice.equals("quickstart") || voice.equals("starts")) {
-                        startActivity(new Intent(getActivity(), TimerWindow.class));
+                    } else if (voice.equals("start first") || voice.equals("quickstart first") || voice.equals("starts first")
+                            || voice.equals("first") || voice.equals("first workout") || voice.equals("start first workout")
+                            || voice.equals("start workout one") || voice.equals("workout ett")) {
+                        startWO(list1);
+                    }else if (voice.equals("start second") || voice.equals("quickstart second") || voice.equals("starts second")
+                            || voice.equals("second") || voice.equals("second workout") || voice.equals("start second workout")
+                            || voice.equals("start workout two") || voice.equals("workout två")) {
+                        startWO(list2);
                     }
 
                 }
