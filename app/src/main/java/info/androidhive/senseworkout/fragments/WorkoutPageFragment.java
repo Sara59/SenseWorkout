@@ -160,7 +160,7 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
             }
         });
 
-        /* Prototype 2
+
         Context context = view.getContext();
         dialog = new AlertDialog.Builder(context)
                 .setMessage("Hello")
@@ -170,7 +170,6 @@ public class WorkoutPageFragment extends Fragment implements View.OnClickListene
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 }).show();
-        */
 
         return view;
     }
